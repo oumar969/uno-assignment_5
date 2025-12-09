@@ -1,0 +1,25 @@
+{
+  "name": "uno-server",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.2.0",
+    "@graphql-tools/schema": "^10.0.29",
+    "graphql": "^16.12.0",
+    "graphql-subscriptions": "^3.0.0",
+    "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.12.1",
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.1",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
