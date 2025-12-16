@@ -1,0 +1,126 @@
+/* ==============================================================
+   GameBoard Component Styles
+   ============================================================== */
+
+.game-board {
+  padding: 20px;
+}
+
+.game-title {
+  margin-bottom: 20px;
+}
+
+.winner-message {
+  color: #2ecc71;
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+/* ----------------------------------------------------------
+   Players Section
+   ---------------------------------------------------------- */
+
+.players-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.player-card {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+  min-width: 160px;
+}
+
+.player-card.current-player {
+  border: 2px solid #2ecc71;
+}
+
+.player-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.player-status {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.player-hand-info {
+  margin-top: 8px;
+}
+
+.hand-count {
+  margin-bottom: 6px;
+}
+
+.opponent-cards {
+  display: flex;
+  gap: 4px;
+}
+
+.top-card-section {
+  margin: 20px 0;
+}
+
+.active-color-section {
+  margin: 20px 0;
+}
+
+.active-color-badge {
+  width: 80px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.color-red {
+  background: #e74c3c;
+}
+
+.color-blue {
+  background: #3498db;
+}
+
+.color-green {
+  background: #2ecc71;
+}
+
+.color-yellow {
+  background: #f1c40f;
+}
+
+.color-default {
+  background: #999;
+}
+
+/* ----------------------------------------------------------
+   Actions
+   ---------------------------------------------------------- */
+
+.draw-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.draw-button:hover {
+  background: #2980b9;
+}
+
+.draw-button:active {
+  transform: scale(0.98);
+}

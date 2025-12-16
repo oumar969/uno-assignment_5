@@ -1,3 +1,11 @@
+// ==============================================================
+// Lobby Page
+// ==============================================================
+// Lists all games
+// Actions: Create new game, Join existing game
+// Uses Apollo useQuery to fetch games
+// ==============================================================
+
 import React from "react";
 import { useQuery } from "@apollo/client/react/hooks";
 import { GET_GAMES } from "../api/uno";

@@ -1,15 +1,15 @@
+// ==============================================================
+// Main App Component
+// ==============================================================
+// Provides routing via RouterProvider
+// Wrapped by Redux Provider + Apollo Provider in index.tsx
+// ==============================================================
+
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Lobby from "./pages/Lobby";
-import GameBoard from "./pages/GameBoard";
+import { RouterProvider } from "react-router-dom";
+import router from "./router";
 
 export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Lobby />} />
-        <Route path="/game/:id" element={<GameBoard />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  
+  return <RouterProvider router={router} />;
 }

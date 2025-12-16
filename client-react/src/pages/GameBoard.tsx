@@ -1,3 +1,12 @@
+// ==============================================================
+// Game Board Page
+// ==============================================================
+// Displays current UNO game state
+// Real-time updates via RxJS stream → Redux
+// Actions: Play card, Draw card
+// Uses Redux for state, not Apollo queries
+// ==============================================================
+
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux"; // Redux hook
@@ -9,6 +18,7 @@ import { setGame } from "../redux/gameSlice";
 import { startGameStream } from "../rx/gameStream";
 import Hand from "../components/Hand";
 import Card from "../components/Card";
+import "./GameBoard.css";
 
 export default function GameBoard() {
   const { id } = useParams();
@@ -47,43 +57,50 @@ export default function GameBoard() {
         ? prompt("Choose color (red, blue, green, yellow):") || undefined
         : undefined;
 
-    apiPlayCard(id!, playerId!, index, chosenColor);
+    apiPlayCard(id!, playerId!, index, chosenColor).catch((err) => {
+      if (err.message.includes("Forbidden")) {
+        alert("It's not your turn!");
+      } else {
+        alert(`Error: ${err.message}`);
+      }
+    });
   }
 
   function draw() {
-    apiDrawCard(id!, playerId!);
+    apiDrawCard(id!, playerId!).catch((err) => {
+      if (err.message.includes("Forbidden")) {
+        alert("It's not your turn!");
+      } else {
+        alert(`Error: ${err.message}`);
+      }
+    });
   }
 
   return (
-    <div>
-      <h2>UNO Game {game.id}</h2>
+    <div className="game-board">
+      <h2 className="game-title">UNO Game {game.id}</h2>
 
       {game.winner && (
-        <h1>🎉 {game.winner} won the game!</h1>
+        <h1 className="winner-message">🎉 {game.winner} won the game!</h1>
       )}
       <h3>Players:</h3>
 
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+      <div className="players-container">
         {game.players.map((p: any) => (
           <div
             key={p.id}
-            style={{
-              border: p.id === (game.currentPlayer?.id ?? null) ? "2px solid #2ecc71" : "1px solid #ddd",
-              padding: 8,
-              borderRadius: 8,
-              minWidth: 160,
-            }}
+            className={`player-card ${p.id === (game.currentPlayer?.id ?? null) ? 'current-player' : ''}`}
           >
-            <div style={{ fontWeight: "bold" }}>
+            <div className="player-name">
               {p.name} {p.id === playerId && "(You)"}
             </div>
-            <div style={{ fontSize: 12, color: "#666" }}>
+            <div className="player-status">
               {p.id === (game.currentPlayer?.id ?? null) ? "(Current)" : ""}
             </div>
-            <div style={{ marginTop: 8 }}>
-              <div style={{ marginBottom: 6 }}>Cards: {p.handCount ?? p.hand?.length ?? 0}</div>
+            <div className="player-hand-info">
+              <div className="hand-count">Cards: {p.handCount ?? p.hand?.length ?? 0}</div>
               {/* show small back placeholders for opponents */}
-              <div style={{ display: "flex", gap: 4 }}>
+              <div className="opponent-cards">
                 {p.id === playerId ? (
                   <Hand hand={p.hand} onPlay={(card, i) => play(card, i)} />
                 ) : (
@@ -96,53 +113,32 @@ export default function GameBoard() {
           </div>
         ))}
       </div>
-      <h3>Top Card:</h3>
 
-{game.topCard ? (
-  <Card
-    color={game.topCard.color}
-    type={game.topCard.type}
-    value={game.topCard.value}
-  />
-) : (
-  <p>No top card</p>
-)}
+      <div className="top-card-section">
+        <h3>Top Card:</h3>
+        {game.topCard ? (
+          <Card
+            color={game.topCard.color}
+            type={game.topCard.type}
+            value={game.topCard.value}
+          />
+        ) : (
+          <p>No top card</p>
+        )}
+      </div>
 
-      {/* Player hands are shown above in the Players list (no duplicate) */}
-<h3>Active Color:</h3>
+      <div className="active-color-section">
+        <h3>Active Color:</h3>
+        {game.activeColor ? (
+          <div className={`active-color-badge color-${game.activeColor}`}>
+            {game.activeColor}
+          </div>
+        ) : (
+          <p>No active color</p>
+        )}
+      </div>
 
-{game.activeColor ? (
-  <div
-    style={{
-      width: "80px",
-      height: "30px",
-      borderRadius: "8px",
-      background:
-        game.activeColor === "red"
-          ? "#e74c3c"
-          : game.activeColor === "blue"
-          ? "#3498db"
-          : game.activeColor === "green"
-          ? "#2ecc71"
-          : game.activeColor === "yellow"
-          ? "#f1c40f"
-          : "#999",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      color: "#fff",
-      fontWeight: "bold",
-      textTransform: "uppercase",
-    }}
-  >
-    {game.activeColor}
-  </div>
-) : (
-  <p>No active color</p>
-)}
-
-
-      <button onClick={draw}>Draw Card</button>
+      <button className="draw-button" onClick={draw}>Draw Card</button>
     </div>
   );
 }

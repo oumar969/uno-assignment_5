@@ -1,3 +1,10 @@
+// ==============================================================
+// Redux Store Configuration
+// ==============================================================
+// Combines all slices: player, game
+// Provides global state management
+// ==============================================================
+
 import { configureStore } from "@reduxjs/toolkit";
 import playerReducer from "./playerSlice";
 import gameReducer from "./gameSlice";

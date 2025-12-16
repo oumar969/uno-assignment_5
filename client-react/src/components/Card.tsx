@@ -1,3 +1,11 @@
+// ==============================================================
+// Card Component
+// ==============================================================
+// Displays a single UNO card
+// Props: color, type, value, back (boolean), onClick
+// Supports both face-up and face-down rendering
+// ==============================================================
+
 import React from "react";
 
 interface Props {

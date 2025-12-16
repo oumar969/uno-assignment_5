@@ -1,5 +1,3 @@
-import * as _ from "lodash/fp"
-
 export type Color = "red" | "blue" | "green" | "yellow" | "wild"
 
 export enum CardType {

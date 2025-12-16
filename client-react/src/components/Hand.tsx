@@ -1,3 +1,10 @@
+// ==============================================================
+// Hand Component
+// ==============================================================
+// Displays player's cards in a horizontal layout
+// Props: hand (Card[]), onPlay (optional click handler)
+// ==============================================================
+
 import React from "react";
 import Card from "./Card";
 

@@ -1,16 +1,21 @@
+// ==============================================================
+// RxJS Game Stream
+// ==============================================================
+// Wraps GraphQL subscription in RxJS Observable
+// Dispatches server events to Redux store
+// Architecture:
+//   GraphQL Subscription → RxJS Observable → Redux Store
+// ==============================================================
+
 import { Observable } from "rxjs";
 import { apolloClient } from "../apollo/client";
 import { gql } from "@apollo/client";
 import { store } from "../redux/store";
 import { applyServerEvent } from "../redux/gameSlice";
-
-//rxks is a library for reactive programming using observables, to make it easier to compose asynchronous or callback-based code.
-/*
-Redux → state
-React → view
-RxJS → events
-FP UNO → reducer-logik på serveren
-*/
+import { toGame, GraphQLGame } from "../model/mappers";
+// ----------------------------------------------------------
+// GraphQL Subscription
+// ----------------------------------------------------------
 const GAME_UPDATED_SUB = gql`
   subscription OnGameUpdated($id: ID!) {
     gameUpdated(id: $id) {
@@ -29,17 +34,25 @@ const GAME_UPDATED_SUB = gql`
     }
   }
 `;
-// Starter en RxJS stream der lytter på game updates via GraphQL subscription
+
+// ----------------------------------------------------------
+// Start RxJS Stream for Game Updates
+// ----------------------------------------------------------
+// Creates Observable from GraphQL subscription
+// Dispatches updates to Redux via applyServerEvent
+// ----------------------------------------------------------
 export function startGameStream(gameId: string) {
-  const observable = new Observable((subscriber) => {
+  const observable = new Observable<GraphQLGame>((subscriber) => {
     const sub = apolloClient
-      .subscribe({
+      .subscribe<{ gameUpdated: GraphQLGame }>({
         query: GAME_UPDATED_SUB,
         variables: { id: gameId },
       })
       .subscribe({
         next: (result) => {
-          subscriber.next(result.data.gameUpdated);
+          if (result.data) {
+            subscriber.next(result.data.gameUpdated);
+          }
         },
         error: (err) => subscriber.error(err),
       });
@@ -47,8 +60,7 @@ export function startGameStream(gameId: string) {
     return () => sub.unsubscribe();
   });
 
-  // Subscribe RxJS → dispatch to Redux
   observable.subscribe((gameState) => {
-    store.dispatch(applyServerEvent(gameState));
+    store.dispatch(applyServerEvent(toGame(gameState)));
   });
 }

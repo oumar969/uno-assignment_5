@@ -1,7 +1,18 @@
+// ==============================================================
+// UNO Game API Client
+// ==============================================================
+// GraphQL queries and mutations for UNO game
+// Maps GraphQL responses to domain model using toGame()
+// ==============================================================
+
 import { gql } from "@apollo/client";
 import { apolloClient } from "../apollo/client";
+import { ClientGame } from "../model/domain";
+import { toGame } from "../model/mappers";
 
-// ---- QUERIES ----
+// ----------------------------------------------------------
+// GraphQL Queries
+// ----------------------------------------------------------
 export const GET_GAMES = gql`
   query {
     games {
@@ -29,17 +40,33 @@ export const GET_GAME = gql`
   }
 `;
 
-// ---- MUTATIONS ----
+// ----------------------------------------------------------
+// GraphQL Mutations
+// ----------------------------------------------------------
 const CREATE_GAME = gql`
   mutation {
-    createGame { id }
+    createGame {
+      id
+      players { id name }
+      topCard { color type value }
+      activeColor
+      currentPlayer { id name }
+      winner
+    }
   }
 `;
 
 const JOIN_GAME = gql`
   mutation Join($gameId: ID!, $name: String!) {
     joinGame(gameId: $gameId, name: $name) {
-      game { id players { id name } }
+      game {
+        id
+        players { id name }
+        topCard { color type value }
+        activeColor
+        currentPlayer { id name }
+        winner
+      }
       viewerId
     }
   }
@@ -74,22 +101,36 @@ const DRAW_CARD = gql`
   mutation Draw($gameId: ID!, $playerId: ID!) {
     drawCard(gameId: $gameId, playerId: $playerId) {
       id
+      winner
+      activeColor
       topCard { color type value }
+      currentPlayer { id name }
       players {
-        id name
-        hand { color type value }
+        id
+        name
+        handCount
+        hand { color type value back }
       }
     }
   }
 `;
 
-// ---- API FUNCTIONS ----
-export async function apiCreateGame() {
+// ----------------------------------------------------------
+// API Functions (GraphQL → Domain Model)
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+// Create new game
+// ----------------------------------------------------------
+export async function apiCreateGame(): Promise<ClientGame> {
   const res = await apolloClient.mutate({ mutation: CREATE_GAME });
-  return res.data.createGame;
+  return toGame(res.data.createGame);
 }
 
-export async function apiJoinGame(gameId: string, name: string) {
+// ----------------------------------------------------------
+// Join game and persist player ID
+// ----------------------------------------------------------
+export async function apiJoinGame(gameId: string, name: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: JOIN_GAME,
     variables: { gameId, name },
@@ -99,21 +140,27 @@ export async function apiJoinGame(gameId: string, name: string) {
   if (payload?.viewerId) {
     localStorage.setItem("myPlayerId", payload.viewerId);
   }
-  return payload?.game;
+  return toGame(payload?.game);
 }
 
-export async function apiPlayCard(gameId: string, playerId: string, cardIndex: number, chosenColor?: string) {
+// ----------------------------------------------------------
+// Play a card from hand
+// ----------------------------------------------------------
+export async function apiPlayCard(gameId: string, playerId: string, cardIndex: number, chosenColor?: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: PLAY_CARD,
     variables: { gameId, playerId, cardIndex, chosenColor },
   });
-  return res.data.playCard;
+  return toGame(res.data.playCard);
 }
 
-export async function apiDrawCard(gameId: string, playerId: string) {
+// ----------------------------------------------------------
+// Draw a card from deck
+// ----------------------------------------------------------
+export async function apiDrawCard(gameId: string, playerId: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: DRAW_CARD,
     variables: { gameId, playerId },
   });
-  return res.data.drawCard;
+  return toGame(res.data.drawCard);
 }

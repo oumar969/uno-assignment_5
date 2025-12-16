@@ -4,9 +4,9 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { createServer } from "http";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
-import { typeDefs } from "./schema";
-import resolvers from "./resolvers";
-import { pubsub } from "./pubsub";
+import { typeDefs } from "./schema1";
+import resolvers from "./resolvers2_10";
+import { pubsub } from "./pubsub9";
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 

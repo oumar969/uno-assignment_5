@@ -1,7 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ClientGame } from "../model/domain";
+// ==============================================================
+// Redux Game Slice
+// ==============================================================
+// Manages current game state in Redux store
+// Updated by: RxJS stream (applyServerEvent)
+// ==============================================================
+
 
 interface GameState {
-  current: any | null; // hele game-objektet fra serveren
+  current: ClientGame | null; // hele game-objektet fra serveren
 }
 
 const initialState: GameState = {
@@ -12,13 +20,13 @@ const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    setGame(state, action: PayloadAction<any>) {
-      state.current = action.payload;
+    setGame(state, action: PayloadAction<ClientGame>) {
+    return { current: action.payload };
     },
 
-    applyServerEvent(state, action: PayloadAction<any>) {
+    applyServerEvent(state, action: PayloadAction<ClientGame>) {
       // Serveren sender hele game-objektet
-      state.current = action.payload;
+      return { current: action.payload };
     },
   },
 });
