@@ -10,9 +10,9 @@
 import { Observable } from "rxjs";
 import { apolloClient } from "../apollo/client";
 import { gql } from "@apollo/client";
-import { store } from "../redux/store";
-import { applyServerEvent } from "../redux/gameSlice";
-import { toGame, GraphQLGame } from "../model/mappers";
+import { store } from "../../stores/store";
+import { applyServerEvent } from "../../slices/gameSlice";
+import { toGame, GraphQLGame } from "../mappers";
 // ----------------------------------------------------------
 // GraphQL Subscription
 // ----------------------------------------------------------
@@ -43,8 +43,7 @@ const GAME_UPDATED_SUB = gql`
 // ----------------------------------------------------------
 export function startGameStream(gameId: string) {
   const observable = new Observable<GraphQLGame>((subscriber) => {
-    const sub = apolloClient
-      .subscribe<{ gameUpdated: GraphQLGame }>({
+    const sub = apolloClient.subscribe<{ gameUpdated: GraphQLGame }>({
         query: GAME_UPDATED_SUB,
         variables: { id: gameId },
       })
@@ -60,7 +59,7 @@ export function startGameStream(gameId: string) {
     return () => sub.unsubscribe();
   });
 
-  observable.subscribe((gameState) => {
+    observable.subscribe((gameState) => {
     store.dispatch(applyServerEvent(toGame(gameState)));
   });
 }

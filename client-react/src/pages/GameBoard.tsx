@@ -10,15 +10,15 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux"; // Redux hook
-import { RootState } from "../redux/store"; 
-import { apolloClient } from "../apollo/client";
-import { GET_GAME, apiPlayCard, apiDrawCard } from "../api/uno";
 import { useDispatch } from "react-redux"; // Redux hook
-import { setGame } from "../redux/gameSlice";
-import { startGameStream } from "../rx/gameStream";
+import { RootState } from "../stores/store"; 
+import { setGame } from "../slices/gameSlice";
+import { apolloClient } from "../model/apollo/client";
+import { startGameStream } from "../model/rx/gameStream";
 import Hand from "../components/Hand";
 import Card from "../components/Card";
 import "./GameBoard.css";
+import { GET_GAME, apiPlayCard, apiDrawCard } from "../model/api/uno";
 
 export default function GameBoard() {
   const { id } = useParams();

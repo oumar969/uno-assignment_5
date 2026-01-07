@@ -8,11 +8,11 @@
 
 import React from "react";
 import { useQuery } from "@apollo/client/react/hooks";
-import { GET_GAMES } from "../api/uno";
-import { apiCreateGame, apiJoinGame } from "../api/uno";
+import { GET_GAMES } from "../model/api/uno";
+import { apiCreateGame, apiJoinGame } from "../model/api/uno";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setPlayerId } from "../redux/playerSlice";
+import { setPlayerId } from "../slices/playerSlice";
 
 export default function Lobby() {
   const navigate = useNavigate();

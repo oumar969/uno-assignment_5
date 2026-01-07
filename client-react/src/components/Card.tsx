@@ -6,7 +6,8 @@
 // Supports both face-up and face-down rendering
 // ==============================================================
 
-import React from "react";
+import React, { useRef } from "react";
+import "./Card.css";
 
 interface Props {
   color: string | null;
@@ -17,6 +18,16 @@ interface Props {
 }
 
 export default function Card({ color, type, value, back, onClick }: Props) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Optional: If you want to keep the scale effect on hover using JS (otherwise, use :hover in CSS)
+  const handleMouseEnter = () => {
+    if (cardRef.current) cardRef.current.style.transform = "scale(1.1)";
+  };
+  const handleMouseLeave = () => {
+    if (cardRef.current) cardRef.current.style.transform = "scale(1)";
+  };
+
   function getCardImage() {
     if (back) return "/cards/Back.png";
     if (!color || !type) return "/cards/Deck.png";
@@ -48,24 +59,17 @@ export default function Card({ color, type, value, back, onClick }: Props) {
 
   return (
     <div
+      ref={cardRef}
       onClick={onClick}
-      style={{
-        width: "70px",
-        height: "100px",
-        borderRadius: "10px",
-        margin: "5px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        cursor: onClick ? "pointer" : "default",
-        transition: "transform 0.2s",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}>
+      className="card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{ cursor: onClick ? "pointer" : "default" }}
+    >
       <img
         src={getCardImage()}
         alt={type ?? "card"}
-        style={{ width: "80%", height: "80%", objectFit: "contain" }}
+        className="card-image"
       />
     </div>
   );

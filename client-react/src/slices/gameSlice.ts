@@ -7,7 +7,6 @@ import { ClientGame } from "../model/domain";
 // Updated by: RxJS stream (applyServerEvent)
 // ==============================================================
 
-
 interface GameState {
   current: ClientGame | null; // hele game-objektet fra serveren
 }
@@ -15,7 +14,6 @@ interface GameState {
 const initialState: GameState = {
   current: null,
 };
-
 const gameSlice = createSlice({
   name: "game",
   initialState,
@@ -34,8 +32,3 @@ const gameSlice = createSlice({
 export const { setGame, applyServerEvent } = gameSlice.actions;
 export default gameSlice.reducer;
 
-
-// redux er en global state management løsning der bruges til at håndtere applikationens tilstand på en forudsigelig måde.
-// I denne fil defineres en "slice" af redux state specifikt til at håndtere spillets tilstand, såsom den aktuelle spiller, kortene på hånden, spillets status osv.
-// Ved at bruge redux kan forskellige komponenter i applikationen få adgang til og opdatere spillets tilstand på en centraliseret måde,
-// hvilket gør det lettere at holde styr på ændringer og sikre konsistens på tværs af applikationen.

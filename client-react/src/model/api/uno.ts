@@ -7,8 +7,8 @@
 
 import { gql } from "@apollo/client";
 import { apolloClient } from "../apollo/client";
-import { ClientGame } from "../model/domain";
-import { toGame } from "../model/mappers";
+import { ClientGame } from "../domain";
+import { toGame } from "../mappers";
 
 // ----------------------------------------------------------
 // GraphQL Queries
