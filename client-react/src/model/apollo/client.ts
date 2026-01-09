@@ -6,11 +6,17 @@
 // setContext: Reads localStorage for auth on every request
 // ==============================================================
 
-import { ApolloClient, InMemoryCache, HttpLink, split } from "@apollo/client";
+import { ApolloClient, HttpLink ,InMemoryCache, split} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createClient } from "graphql-ws";
 import { getMainDefinition } from "@apollo/client/utilities";
+
+
+// --- HTTP link (queries & mutations) ---
+const httpLink = new HttpLink({
+  uri: "http://localhost:4000/graphql",
+});
 
 // ----------------------------------------------------------
 // Auth Link - Dynamic Headers from localStorage
@@ -25,10 +31,6 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// --- HTTP link (queries & mutations) ---
-const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
-});
 
 // --- WebSocket link (subscriptions) ---
 const wsLink = new GraphQLWsLink(

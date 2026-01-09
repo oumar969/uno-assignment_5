@@ -89,13 +89,11 @@ export const createResolvers = (api: API) => {
 
     Game: {
       players: (game: any) => game.players,
-
       topCard: (game: any) => {
         const top = game.state.discardPile.at(-1);
         if (!top) return null;
         return top;
       },
-
       activeColor: (game: any) => game.state.activeColor,
       direction: (game: any) => game.state.direction,
       currentPlayer: (game: any) => {
@@ -104,14 +102,11 @@ export const createResolvers = (api: API) => {
         const found = game.players.find((x: any) => x.name === p.name);
         return found ?? null;
       },
-
       winner: (game: any) => game.state.winner ?? null,
     },
 
     Player: {
       hand: (player: any, _: any, context: any, info: any) => {
-        // Note: This would ideally also go through the API layer
-        // For now, keeping it as is for compatibility
         const game = info.variableValues.id
           ? (async () => {
               const res = await api.game(info.variableValues.id);
@@ -170,3 +165,15 @@ const store = createInMemoryStore();
 const broadcaster = createPubSubBroadcaster(pubsub);
 const api = createAPI(broadcaster, store);
 export default createResolvers(api);
+
+
+/*
+Query: {
+  async resolverName(parent, args, context) {
+  parent means the object that contains this field
+  args are the arguments passed to the query/mutation
+  context is shared between all resolvers, e.g., authentication info
+    // logic
+  }
+}
+*/
