@@ -1,5 +1,8 @@
 import { Card } from "./uno.types";
-
+//functional programming
+// vs OOP
+// Pure functions
+// 
 // Pure immutable Hand utilities
 export type Hand = readonly Card[];
 

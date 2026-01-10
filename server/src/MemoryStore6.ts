@@ -1,9 +1,7 @@
 import { ServerResponse } from "./ServerResponse7";
 import { ServerGame } from "./servermodel5";
 
-export type StoreError = 
-  | { type: 'Not Found'; key: any } 
-  | { type: 'DB Error'; error: any };
+export type StoreError = | { type: 'Not Found'; key: any } | { type: 'DB Error'; error: any };
 
 export interface GameStore {
   games(): Promise<ServerResponse<ServerGame[], StoreError>>;
@@ -11,7 +9,6 @@ export interface GameStore {
   add(game: ServerGame): Promise<ServerResponse<ServerGame, StoreError>>;
   update(game: ServerGame): Promise<ServerResponse<ServerGame, StoreError>>;
 }
-
 
 export const createInMemoryStore = (): GameStore => {
   const games: ServerGame[] = [];

@@ -1,11 +1,6 @@
 // ==============================================================
 // RxJS Game Stream
 // ==============================================================
-// Wraps GraphQL subscription in RxJS Observable
-// Dispatches server events to Redux store
-// Architecture:
-//   GraphQL Subscription → RxJS Observable → Redux Store
-// ==============================================================
 
 import { Observable } from "rxjs";
 import { apolloClient } from "../apollo/client";
@@ -48,17 +43,19 @@ export function startGameStream(gameId: string) {
         variables: { id: gameId },
       })
       .subscribe({
+        //next handler for incoming data
         next: (result) => {
           if (result.data) {
             subscriber.next(result.data.gameUpdated);
           }
         },
+        //error handler for errors
         error: (err) => subscriber.error(err),
       });
 
     return () => sub.unsubscribe();
   });
-
+// Subscribe to the observable and dispatch updates to Redux store
     observable.subscribe((gameState) => {
     store.dispatch(applyServerEvent(toGame(gameState)));
   });
