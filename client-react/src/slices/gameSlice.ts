@@ -5,6 +5,7 @@ import { ClientGame } from "../model/domain";
 // ==============================================================
 // Manages current game state in Redux store
 // Updated by: RxJS stream (applyServerEvent)
+// payloadAction is a type from redux toolkit that represents an action with a payload
 // ==============================================================
 
 interface GameState {
@@ -14,6 +15,7 @@ interface GameState {
 const initialState: GameState = {
   current: null,
 };
+
 const gameSlice = createSlice({
   name: "game",
   initialState,

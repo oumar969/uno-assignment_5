@@ -1,8 +1,7 @@
 // ==============================================================
 // Redux Store Configuration
 // ==============================================================
-// Combines all slices: player, game
-// Provides global state management
+// Store is made of multiple slices: playerSlice, gameSlice
 // ==============================================================
 
 import { configureStore } from "@reduxjs/toolkit";
