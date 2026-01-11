@@ -2,7 +2,6 @@ import { Card } from "./uno.types";
 //functional programming
 // vs OOP
 // Pure functions
-// 
 // Pure immutable Hand utilities
 export type Hand = readonly Card[];
 
@@ -13,7 +12,7 @@ export function createHand(cards: Card[] = []): Hand {
 export function handCount(hand: Hand): number {
   return hand.length;
 }
-
+//freeze makes object immutable
 export function addCard(hand: Hand, card: Card): Hand {
   return Object.freeze([...hand, card]) as Hand;
 }
@@ -25,7 +24,8 @@ export function removeCardAt(hand: Hand, index: number): { card: Card; hand: Han
 }
 
 // Memento conversion: plain serializable representation
-export function toMemento(hand: Hand): Array<{ color: string; type: string; value?: number }> {
+export function toMemento(hand: Hand): Array<{ color: string; type: string; value?: number }>
+{
   return hand.map((c) => ({ color: c.color, type: c.type, value: c.value }));
 }
 
