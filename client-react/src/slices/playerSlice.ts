@@ -1,9 +1,6 @@
-// ==============================================================
 // Redux Player Slice
-// ==============================================================
-// Manages current player ID (stored in localStorage)
+// Manages current player ID 
 // Set after joining a game
-// ==============================================================
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 //export type PlayerState =  {

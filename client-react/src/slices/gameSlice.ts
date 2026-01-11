@@ -1,15 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ClientGame } from "../model/domain";
-// ==============================================================
-// Redux Game Slice
-// ==============================================================
 // Manages current game state in Redux store
 // Updated by: RxJS stream (applyServerEvent)
-// payloadAction is a type from redux toolkit that represents an action with a payload
+// payloadAction is a type from redux toolkit that describes what an action looks like when it has a payload
 // ==============================================================
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ClientGame } from "../model/domain";
 
 interface GameState {
-  current: ClientGame | null; // hele game-objektet fra serveren
+  current: ClientGame | null; // The current game data
 }
 
 const initialState: GameState = {

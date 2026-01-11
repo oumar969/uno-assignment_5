@@ -1,12 +1,8 @@
-// ==============================================================
-// Card Component
-// ==============================================================
+//The original Flux pattern View (User Interaction) → Action → Dispatcher → Store → View (Re-render)
 // Displays a single UNO card
-// Props: color, type, value, back (boolean), onClick
-// Supports both face-up and face-down rendering
-// ==============================================================
+// Props
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import "./Card.css";
 
 interface Props {
@@ -38,7 +34,6 @@ export default function Card({ color, type, value, back, onClick }: Props) {
     if (t === "number" && value !== null && value !== undefined) {
       return `/cards/${c}_${value}.png`;
     }
-
     switch (t) {
       case "skip":
         return `/cards/${c}_Skip.png`;

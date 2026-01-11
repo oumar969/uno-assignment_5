@@ -1,8 +1,5 @@
-// ==============================================================
-// Redux Store Configuration
-// ==============================================================
+// Redux Store
 // Store is made of multiple slices: playerSlice, gameSlice
-// ==============================================================
 
 import { configureStore } from "@reduxjs/toolkit";
 import playerReducer from "../slices/playerSlice";
