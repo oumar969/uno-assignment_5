@@ -32,9 +32,8 @@ const GAME_UPDATED_SUB = gql`
 
 // ----------------------------------------------------------
 // Start RxJS Stream for Game Updates
-// ----------------------------------------------------------
 // Creates Observable from GraphQL subscription
-// Dispatches updates to Redux via applyServerEvent
+//gameUpdated is the event emitted by the server when the game state changes
 // ----------------------------------------------------------
 export function startGameStream(gameId: string) {
   const observable = new Observable<GraphQLGame>((subscriber) => {
@@ -56,6 +55,7 @@ export function startGameStream(gameId: string) {
     return () => sub.unsubscribe();
   });
 // Subscribe to the observable and dispatch updates to Redux store
+// Dispatches updates to Redux via applyServerEvent
     observable.subscribe((gameState) => {
     store.dispatch(applyServerEvent(toGame(gameState)));
   });

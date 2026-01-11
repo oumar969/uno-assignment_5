@@ -115,21 +115,13 @@ const DRAW_CARD = gql`
   }
 `;
 
-// ----------------------------------------------------------
-// API Functions (GraphQL → Domain Model)
-// ----------------------------------------------------------
-
-// ----------------------------------------------------------
 // Create new game
-// ----------------------------------------------------------
 export async function apiCreateGame(): Promise<ClientGame> {
   const res = await apolloClient.mutate({ mutation: CREATE_GAME });
   return toGame(res.data.createGame);
 }
 
-// ----------------------------------------------------------
 // Join game and persist player ID
-// ----------------------------------------------------------
 export async function apiJoinGame(gameId: string, name: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: JOIN_GAME,
@@ -143,9 +135,7 @@ export async function apiJoinGame(gameId: string, name: string): Promise<ClientG
   return toGame(payload?.game);
 }
 
-// ----------------------------------------------------------
 // Play a card from hand
-// ----------------------------------------------------------
 export async function apiPlayCard(gameId: string, playerId: string, cardIndex: number, chosenColor?: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: PLAY_CARD,
@@ -154,9 +144,7 @@ export async function apiPlayCard(gameId: string, playerId: string, cardIndex: n
   return toGame(res.data.playCard);
 }
 
-// ----------------------------------------------------------
 // Draw a card from deck
-// ----------------------------------------------------------
 export async function apiDrawCard(gameId: string, playerId: string): Promise<ClientGame> {
   const res = await apolloClient.mutate({
     mutation: DRAW_CARD,

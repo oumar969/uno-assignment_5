@@ -14,9 +14,11 @@ export const typeDefs = gql`
   hand: [Card!]!     # kun egen hånd
   handCount: Int!    # andre spillere ser kun hvor mange kort
 }
+  
 type Subscription {
   gameUpdated(id: ID!): Game!
 }
+
 type Game {
   id: ID!
   players: [Player!]!

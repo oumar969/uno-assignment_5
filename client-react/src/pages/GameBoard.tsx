@@ -7,11 +7,11 @@
 // Uses Redux for state, not Apollo queries
 // ==============================================================
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { RootState } from "../stores/store"; 
 import { useSelector } from "react-redux"; // Redux hook
 import { useDispatch } from "react-redux"; // Redux hook
-import { RootState } from "../stores/store"; 
 import { setGame } from "../slices/gameSlice";
 import { apolloClient } from "../model/apollo/client";
 import { startGameStream } from "../model/rx/gameStream";

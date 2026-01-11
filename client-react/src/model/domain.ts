@@ -3,16 +3,15 @@
 // ==============================================================
 // Re-exports server types (Card, Player, Uno) for type safety
 // ClientGame wraps server model with GraphQL-specific fields
-// Single source of truth: server/src/uno/uno.types.ts
 // ==============================================================
 
 import { Card, Color, Player, Uno } from "../../../server/src/uno/uno.types";
 
 export type { Card, Player, Uno, Color } from "../../../server/src/uno/uno.types";
-export { CardType } from "../../../server/src/uno/uno.types";
 
 // Client-specific aliases/extensions
 export type ClientPlayer = Player;
+
 export type ClientGame = {
   id: string;
   players: ClientPlayer[];
