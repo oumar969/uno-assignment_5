@@ -39,12 +39,12 @@ export function deckFromMemento(m: DeckMemento): Deck {
   return m.map(cardFromMemento) as Deck;
 }
 
-export function playerToMemento(p: Player): PlayerMemento {
+export function playerToMemento(player: Player): PlayerMemento {
   return {
-    id: p.id,
-    name: p.name,
-    hand: handToMemento(p.hand as any) as DeckMemento,
-    saidUno: (p as any).saidUno ?? false,
+    id: player.id,
+    name: player.name,
+    hand: handToMemento(player.hand as any) as DeckMemento,
+    saidUno: (player as any).saidUno ?? false,
   };
 }
 

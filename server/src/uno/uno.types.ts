@@ -1,3 +1,7 @@
+/*
+Immutable types
+✔ No mutation
+*/
 export type Color = "red" | "blue" | "green" | "yellow" | "wild"
 
 export enum CardType {
@@ -50,7 +54,7 @@ export type WildDrawFourCard = Readonly<{
   type: CardType.WildDrawFour
 }>
 
-// Utility typed card mapping
+// extends 
 export type TypedCard<T extends CardType> =
   T extends CardType.Number ? NumberCard :
   T extends CardType.Skip ? SkipCard :
@@ -75,8 +79,3 @@ export type Uno = Readonly<{
   activeColor: Color
   winner?: string
 }>
-/*
-Immutable types
-✔ No mutation
-✔ Same pattern as Yahtzee
-*/

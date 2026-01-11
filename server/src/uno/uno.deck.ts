@@ -1,3 +1,8 @@
+/*
+ pure
+ lodash/fp style
+ immutable
+*/
 import { Card, CardType, Color } from "./uno.types";
 import * as _ from "lodash/fp"
 
@@ -44,8 +49,3 @@ export function draw(deck: Deck): [Card, Deck] {
   return [deck[0], deck.slice(1) as Deck]
 }
 
-/*
-✔ identical structure to teacher’s dice_roller
-✔ pure
-✔ immutable
-*/

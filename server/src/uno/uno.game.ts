@@ -1,15 +1,20 @@
 import * as _ from "lodash/fp"
+//lodash fp for functional programming utilities
+/*
+✔ Immutable
+✔ Pure
+✔ Functional
+✔ lodash/fp pipeline style
+*/
 import { generate_deck, draw } from "./uno.deck"
 import { is_match } from "./uno.rules"
-import { Uno, Player, Card, CardType, Color } from "./uno.types"
+import { Uno, Card, CardType, Color } from "./uno.types"
 
 // ----------------------------------------------------------
 // Create new game
 // ----------------------------------------------------------
-
 export function new_uno(playersIn: { id: string, name: string }[]): Uno {
   const deck = generate_deck();
-
   const players = playersIn.map((p, i) => ({
     id: p.id,
     name: p.name,
@@ -34,43 +39,19 @@ export function new_uno(playersIn: { id: string, name: string }[]): Uno {
 // ----------------------------------------------------------
 // Helpers
 // ----------------------------------------------------------
-
 function next_player(game: Uno): number {
   return (game.currentPlayer + game.direction + game.players.length) % game.players.length
-}
-
-function apply_penalty_if_needed(game: Uno): Uno {
-  const p = game.players[game.currentPlayer]
-  if (p.hand.length === 1 && !p.saidUno) {
-    let deck = game.drawPile
-    const drawn: Card[] = []
-
-    _.times(() => {
-      const [c, d] = draw(deck)
-      drawn.push(c)
-      deck = d
-    }, 4)
-
-    return _.flow([
-      _.update(["players", game.currentPlayer, "hand"], (hand: any) => [...hand, ...drawn]),
-      _.set("drawPile", deck)
-    ])(game)
-  }
-  return game
 }
 
 // ----------------------------------------------------------
 // Say UNO
 // ----------------------------------------------------------
-
 export function say_uno(game: Uno): Uno {
   return _.set(["players", game.currentPlayer, "saidUno"], true, game)
 }
-
 // ----------------------------------------------------------
 // Draw card
 // ----------------------------------------------------------
-
 export function draw_card(game: Uno): Uno {
   const [card, newDeck] = draw(game.drawPile)
 
@@ -147,12 +128,3 @@ export function play_card(
     _.set("winner", winner)
   ])(next)
 }
-/*
-✔ Immutable
-✔ Pure
-✔ Functional
-✔ lodash/fp pipeline style
-✔ Samme modulstruktur
-✔ Samme måde at håndtere state
-✔ Samme pattern som Yahtzee
-*/
