@@ -1,11 +1,7 @@
-// ==============================================================
-// Hand Component
-// ==============================================================
-// Displays player's cards in a horizontal layout
-// Props: hand (Card[]), onPlay (optional click handler)
-// ==============================================================
+// import Card
+// Displays player's cards by mapping over hand array
+// Props
 
-import React from "react";
 import Card from "./Card";
 
 interface Props {

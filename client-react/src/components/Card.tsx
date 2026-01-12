@@ -1,8 +1,10 @@
 //The original Flux pattern View (User Interaction) → Action → Dispatcher → Store → View (Re-render)
 // Displays a single UNO card
 // Props
-
-import { useRef } from "react";
+//events sent back using callback prop
+//functions
+//returns JSX to render the UI.
+import { useRef } from "react";// React hook for DOM refs
 import "./Card.css";
 
 interface Props {
@@ -14,16 +16,15 @@ interface Props {
 }
 
 export default function Card({ color, type, value, back, onClick }: Props) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Optional: If you want to keep the scale effect on hover using JS (otherwise, use :hover in CSS)
+  const cardRef = useRef<HTMLDivElement>(null);//reference to the <div> DOM element.
+  //scales the card up/down.
   const handleMouseEnter = () => {
     if (cardRef.current) cardRef.current.style.transform = "scale(1.1)";
   };
   const handleMouseLeave = () => {
     if (cardRef.current) cardRef.current.style.transform = "scale(1)";
   };
-
+  //chooses the correct image
   function getCardImage() {
     if (back) return "/cards/Back.png";
     if (!color || !type) return "/cards/Deck.png";
@@ -51,11 +52,11 @@ export default function Card({ color, type, value, back, onClick }: Props) {
         return "/cards/Deck.png";
     }
   }
-
+  //renders the card
   return (
     <div
-      ref={cardRef}
-      onClick={onClick}
+      ref={cardRef}//connects the DOM element to the ref.
+      onClick={onClick}//if the parent passes an onClick callback, clicking the card will call it
       className="card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

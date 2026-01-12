@@ -1,17 +1,12 @@
-// ==============================================================
-// Lobby Page
-// ==============================================================
 // Lists all games
 // Actions: Create new game, Join existing game
 // Uses Apollo useQuery to fetch games
-// ==============================================================
 
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client/react/hooks";
 import { GET_GAMES } from "../model/api/uno";
 import { apiCreateGame, apiJoinGame } from "../model/api/uno";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { setPlayerId } from "../slices/playerSlice";
 
 export default function Lobby() {
@@ -50,7 +45,7 @@ export default function Lobby() {
     <div>
       <h2>🎮 UNO Lobby</h2>
 
-      <button onClick={handleCreate}>➕ Create Game</button>
+      <button onClick={handleCreate}> Create Game</button>
 
       {loading && <p>Loading games...</p>}
 

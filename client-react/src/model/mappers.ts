@@ -1,10 +1,7 @@
-// ==============================================================
 // GraphQL → Domain Model Mappers
-// ==============================================================
+
 // Transforms raw GraphQL responses to typed domain objects
 // Ensures UI never works with 'any' types
-// Functions: toCard(), toPlayer(), toGame()
-// ==============================================================
 
 import { ClientGame, ClientPlayer, Card, Color } from "./domain";
 

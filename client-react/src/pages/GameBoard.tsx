@@ -1,33 +1,32 @@
-// ==============================================================
-// Game Board Page
-// ==============================================================
 // Displays current UNO game state
 // Real-time updates via RxJS stream → Redux
 // Actions: Play card, Draw card
 // Uses Redux for state, not Apollo queries
-// ==============================================================
-
+//load data and start subscriptions
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { RootState } from "../stores/store"; 
+
 import { useSelector } from "react-redux"; // Redux hook
 import { useDispatch } from "react-redux"; // Redux hook
+
+import { RootState } from "../stores/store"; 
 import { setGame } from "../slices/gameSlice";
 import { apolloClient } from "../model/apollo/client";
 import { startGameStream } from "../model/rx/gameStream";
+
 import Hand from "../components/Hand";
 import Card from "../components/Card";
 import "./GameBoard.css";
 import { GET_GAME, apiPlayCard, apiDrawCard } from "../model/api/uno";
 
 export default function GameBoard() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  //redux hook der bruges til at få adgang til redux store state i en React komponent
-  const game = useSelector((s: RootState) => s.game.current); // hele game-objektet
-  const playerId = useSelector((s: RootState) => s.player.id); // min player ID
+  const { id } = useParams(); // get game ID from URL
+  const dispatch = useDispatch();// send actions to redux
+  //redux hook to access state
+  const game = useSelector((s: RootState) => s.game.current); // entire game object
+  const playerId = useSelector((s: RootState) => s.player.id); // my player ID
 
-  // Load game once
+  // Load game 
   useEffect(() => {
     async function load() {
       const result = await apolloClient.query({

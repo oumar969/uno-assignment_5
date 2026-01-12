@@ -1,7 +1,7 @@
 // Manages current game state in Redux store
 // Updated by: RxJS stream (applyServerEvent)
-// payloadAction is a type from redux toolkit that describes what an action looks like when it has a payload
-// ==============================================================
+// payloadAction is a type from redux toolkit that describes
+//  what an action looks like when it has a payload
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ClientGame } from "../model/domain";
 

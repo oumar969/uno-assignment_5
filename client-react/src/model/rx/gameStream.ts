@@ -8,9 +8,8 @@ import { gql } from "@apollo/client";
 import { store } from "../../stores/store";
 import { applyServerEvent } from "../../slices/gameSlice";
 import { toGame, GraphQLGame } from "../mappers";
-// ----------------------------------------------------------
+
 // GraphQL Subscription
-// ----------------------------------------------------------
 const GAME_UPDATED_SUB = gql`
   subscription OnGameUpdated($id: ID!) {
     gameUpdated(id: $id) {
@@ -30,11 +29,9 @@ const GAME_UPDATED_SUB = gql`
   }
 `;
 
-// ----------------------------------------------------------
 // Start RxJS Stream for Game Updates
 // Creates Observable from GraphQL subscription
 //gameUpdated is the event emitted by the server when the game state changes
-// ----------------------------------------------------------
 export function startGameStream(gameId: string) {
   const observable = new Observable<GraphQLGame>((subscriber) => {
     const sub = apolloClient.subscribe<{ gameUpdated: GraphQLGame }>({
