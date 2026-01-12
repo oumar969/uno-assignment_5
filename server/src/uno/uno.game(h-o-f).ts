@@ -5,7 +5,7 @@ import * as _ from "lodash/fp"
 ✔ Functional
 ✔ lodash/fp pipeline style
 */
-import { generate_deck, draw } from "./uno.deck"
+import { generate_deck, draw } from "./uno.deck(lodash)"
 import { is_match } from "./uno.rules"
 import { Uno, Card, CardType, Color } from "./uno.types"
 
@@ -45,11 +45,11 @@ export function say_uno(game: Uno): Uno {
   export function draw_card(game: Uno): Uno {
   const [card, newDeck] = draw(game.drawPile)
 
-  return _.flow([
+  return _.flow([ //takes functions as input
     _.update(["players", game.currentPlayer, "hand"], (hand: any) => [...hand, card]),
     _.set("drawPile", newDeck),
     _.set("currentPlayer", next_player(game))
-  ])(game)
+  ])(game)//returns modified game
 }
 
 // Play a card

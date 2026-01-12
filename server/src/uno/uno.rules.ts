@@ -28,5 +28,5 @@ export function is_match(card: Card, top: Card, active: Color): boolean {
 }
 */
 /*
-exact functional check
+is_match checks if a played card is valid based on the top card and active color.
 */

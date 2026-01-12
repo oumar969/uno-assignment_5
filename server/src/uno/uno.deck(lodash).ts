@@ -1,6 +1,6 @@
 /*
  pure
- lodash/fp style
+ lodash/fp style(make functional code shorter and easier to read)
  immutable
 */
 import { Card, CardType, Color } from "./uno.types";

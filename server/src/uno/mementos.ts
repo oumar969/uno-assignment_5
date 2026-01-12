@@ -1,8 +1,8 @@
 import { Card, CardType, Color, Player, Uno } from "./uno.types";
-import { Deck } from "./uno.deck";
+import { Deck } from "./uno.deck(lodash)";
 import { toMemento as handToMemento, fromMemento as handFromMemento } from "./hand";
 
-// Plain serializable memento types
+// Mementos help us save and load the game state
 export type CardMemento = { color: Color; type: CardType; value?: number };
 export type DeckMemento = CardMemento[];
 

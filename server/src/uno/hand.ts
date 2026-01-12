@@ -5,7 +5,7 @@ import { Card } from "./uno.types";
 // vs OOP
 // Pure functions
 // Pure immutable Hand utilities
-//callbacks(c) => for each card in hand
+//callbacks(c) => (map, filter)
 export type Hand = readonly Card[];
 
 export function createHand(cards: Card[] = []): Hand {
@@ -30,7 +30,7 @@ export function removeCardAt(hand: Hand, index: number): { card: Card; hand: Han
 // Memento conversion: plain serializable representation
 export function toMemento(hand: Hand): Array<{ color: string; type: string; value?: number }>
 {
-  return hand.map((c) => ({ color: c.color, type: c.type, value: c.value }));
+  return hand.map((c) => ({ color: c.color, type: c.type, value: c.value }));//callback for map helpes to create new array
 }
 
 export function fromMemento(m: Array<{ color: string; type: string; value?: number }>): Hand {

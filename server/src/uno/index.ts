@@ -1,4 +1,4 @@
-import { new_uno, play_card, draw_card, say_uno } from "./uno.game"
+import { new_uno, play_card, draw_card, say_uno } from "./uno.game(h-o-f)"
 
 export function createFunctionalGame(players: { id: string; name: string }[]) {
   return new_uno(players)

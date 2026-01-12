@@ -3,7 +3,7 @@ import { List } from "immutable";
 import type { Card } from "./uno.types"; 
 //immutable List from immutable.js
 //persistent immutable data structures like list, map, set
-//lightweight immutable data structures
+//lightweight immutable proxy for extra safety
 export type Hand = List<Card>;
 
 export function createHand(cards: Card[] = []): Hand {
@@ -27,9 +27,9 @@ export function removeCardAt(hand: Hand, index: number): { card: Card; hand: Han
 export function toArray(hand: Hand): Card[] {
   return hand.toArray();
 }
-//The Proxy is only extra safety for objects,
+//extra safety for objects,
 //If someone tries to change or delete something by mistake, the Proxy throws an error
-export function immutableProxy<T extends object>(obj: T): T {
+export function lightwightProxy<T extends object>(obj: T): T {
   return new Proxy(obj, {
     set() { throw new Error("Immutable: cannot modify"); },
     deleteProperty() { throw new Error("Immutable: cannot delete"); },
@@ -40,12 +40,12 @@ export function immutableProxy<T extends object>(obj: T): T {
 export function toMemento(hand: Hand): Array<{ color: string; type: string; value?: number }> {
   return hand.toArray().map((c) => ({ color: c.color, type: c.type, value: c.value }));
 }
-// Optional: dev-safety wrapper
+// toMementoSafe creates a lightweight immutable proxy for extra safety
 export function toMementoSafe(hand: Hand) {
-  return immutableProxy(toMemento(hand));
+  return lightwightProxy(toMemento(hand));
 }
 
-// Memento restore (plain JSON -> Hand)
+// fromMemento creates Hand from memento
 export function fromMemento(m: Array<{ color: string; type: string; value?: number }>): Hand {
   return createHand(m.map((c) => ({ color: c.color as any, type: c.type as any, value: c.value })));
 }
