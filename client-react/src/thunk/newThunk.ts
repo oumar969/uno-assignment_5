@@ -1,18 +1,13 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { GET_GAME } from "../../../server/src/schema1";
-import { apolloClient } from "../model/apollo/client";
-// Thunk to fetch game by ID
-//async action creator
-//side-effect logic
-export const fetchGameById = createAsyncThunk(
-  "game/fetchById",
-  async (gameId: string) => {
-    const res = await apolloClient.query({
-      query: GET_GAME,
-      variables: { id: gameId },
-      fetchPolicy: "no-cache",
-    });
+// thunks/fetchLobby.ts
+import type { AppDispatch } from "../stores/store1";
+import * as api from "../model/api/uno1";
+import * as gameslice from "../slices(Redux)/lobbySlice";
 
-    return res.data.game; // payload
-  }
-);
+
+export const fetchLobby =
+  () =>
+  async (dispatch: AppDispatch) => {
+    const games = await api.games();
+    dispatch(gameslice.actions.reset(games));
+
+  };

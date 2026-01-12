@@ -2,12 +2,13 @@
 // Actions: Create new game, Join existing game
 // Uses Apollo useQuery to fetch games
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 import { useQuery } from "@apollo/client/react/hooks";
 import { GET_GAMES } from "../model/api/uno";
 import { apiCreateGame, apiJoinGame } from "../model/api/uno";
-import { setPlayerId } from "../slices/playerSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setPlayerId } from "../slices(Redux)/playerSlice";
 
 export default function Lobby() {
   const navigate = useNavigate();

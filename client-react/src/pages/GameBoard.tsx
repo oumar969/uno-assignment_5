@@ -6,11 +6,11 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import { RootState } from "../stores/store1"; 
 import { useSelector } from "react-redux"; // Redux hook
 import { useDispatch } from "react-redux"; // Redux hook
 
-import { RootState } from "../stores/store"; 
-import { setGame } from "../slices/gameSlice";
+import { setGame } from "../slices(Redux)/gameSlice";
 import { apolloClient } from "../model/apollo/client";
 import { startGameStream } from "../model/rx/gameStream";
 
@@ -25,6 +25,8 @@ export default function GameBoard() {
   //redux hook to access state
   const game = useSelector((s: RootState) => s.game.current); // entire game object
   const playerId = useSelector((s: RootState) => s.player.id); // my player ID
+
+
 
   // Load game 
   useEffect(() => {
@@ -80,10 +82,9 @@ export default function GameBoard() {
       <h2 className="game-title">UNO Game {game.id}</h2>
 
       {game.winner && (
-        <h1 className="winner-message">🎉 {game.winner} won the game!</h1>
+        <h1 className="winner-message"> {game.winner} won the game!</h1>
       )}
       <h3>Players:</h3>
-
       <div className="players-container">
         {game.players.map((p: any) => (
           <div

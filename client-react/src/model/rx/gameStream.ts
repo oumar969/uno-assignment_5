@@ -5,8 +5,8 @@
 import { Observable } from "rxjs";
 import { apolloClient } from "../apollo/client";
 import { gql } from "@apollo/client";
-import { store } from "../../stores/store";
-import { applyServerEvent } from "../../slices/gameSlice";
+import { store } from "../../stores/store1";
+import { applyServerEvent } from "../../slices(Redux)/gameSlice";
 import { toGame, GraphQLGame } from "../mappers";
 
 // GraphQL Subscription

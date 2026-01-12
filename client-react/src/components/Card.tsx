@@ -18,6 +18,7 @@ interface Props {
 export default function Card({ color, type, value, back, onClick }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);//reference to the <div> DOM element.
   //scales the card up/down.
+
   const handleMouseEnter = () => {
     if (cardRef.current) cardRef.current.style.transform = "scale(1.1)";
   };
@@ -25,6 +26,7 @@ export default function Card({ color, type, value, back, onClick }: Props) {
     if (cardRef.current) cardRef.current.style.transform = "scale(1)";
   };
   //chooses the correct image
+  //correct image path based on the card props
   function getCardImage() {
     if (back) return "/cards/Back.png";
     if (!color || !type) return "/cards/Deck.png";
