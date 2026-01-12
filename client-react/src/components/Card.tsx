@@ -1,5 +1,3 @@
-//The original Flux pattern View (User Interaction) → Action → Dispatcher → Store → View (Re-render)
-// Displays a single UNO card
 // Props
 //events sent back using callback prop
 //functions
