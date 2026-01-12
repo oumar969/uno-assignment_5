@@ -44,8 +44,8 @@ export function say_uno(game: Uno): Uno {
 // Draw card
   export function draw_card(game: Uno): Uno {
   const [card, newDeck] = draw(game.drawPile)
-
-  return _.flow([ //takes functions as input
+  //This function uses a functional pipeline
+  return _.flow([ //takes functions as input and returns a new function.
     _.update(["players", game.currentPlayer, "hand"], (hand: any) => [...hand, card]),
     _.set("drawPile", newDeck),
     _.set("currentPlayer", next_player(game))
