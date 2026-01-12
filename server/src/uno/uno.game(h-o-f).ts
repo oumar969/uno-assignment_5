@@ -49,7 +49,7 @@ export function say_uno(game: Uno): Uno {
     _.update(["players", game.currentPlayer, "hand"], (hand: any) => [...hand, card]),
     _.set("drawPile", newDeck),
     _.set("currentPlayer", next_player(game))
-  ])(game)//returns modified game
+  ])(game)// takes a function as an argument or returns a new function with game
 }
 
 // Play a card

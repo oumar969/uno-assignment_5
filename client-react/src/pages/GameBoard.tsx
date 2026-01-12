@@ -22,10 +22,11 @@ import { GET_GAME, apiPlayCard, apiDrawCard } from "../model/api/uno";
 export default function GameBoard() {
   const { id } = useParams(); // get game ID from URL
   const dispatch = useDispatch();// send actions to redux
+
+
   //redux hook to access state
   const game = useSelector((s: RootState) => s.game.current); // entire game object
   const playerId = useSelector((s: RootState) => s.player.id); // my player ID
-
 
 
   // Load game 
@@ -41,6 +42,8 @@ export default function GameBoard() {
     load();
   }, [id, dispatch]);
 
+
+  
   // Start RxJS stream
   useEffect(() => {
     if (id) startGameStream(id);

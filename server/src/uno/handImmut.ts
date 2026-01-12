@@ -1,5 +1,5 @@
 import { List } from "immutable";
-//it gives us persistent data structures (List, Map) we don’t change the old data. We get a new copy instead
+//persistent data structures (List, Map) we don’t change the old data. We get a new copy instead
 import type { Card } from "./uno.types"; 
 //immutable List from immutable.js
 //persistent immutable data structures like list, map, set
