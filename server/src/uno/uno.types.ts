@@ -1,5 +1,6 @@
 /*
 Immutable types
+utility types
 ✔ No mutation
 */
 export type Color = "red" | "blue" | "green" | "yellow" | "wild"
@@ -40,7 +41,7 @@ export type ReverseCard = Readonly<{
 }>
 
 export type DrawTwoCard = Readonly<{
-  color: Exclude<Color, "wild">
+  color: Exclude<Color, "wild">//removes "wild" from the Color union,
   type: CardType.DrawTwo
 }>
 
@@ -54,7 +55,8 @@ export type WildDrawFourCard = Readonly<{
   type: CardType.WildDrawFour
 }>
 
-// extends 
+// extends is like implements but for types
+// T is a generic type parameter
 export type TypedCard<T extends CardType> =
   T extends CardType.Number ? NumberCard :
   T extends CardType.Skip ? SkipCard :

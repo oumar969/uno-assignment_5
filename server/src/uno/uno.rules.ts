@@ -13,5 +13,20 @@ export function is_match(card: Card, top: Card, active: Color): boolean {
 }
 
 /*
+import { Card, CardType, Color } from "./uno.types";
+
+export function is_match(card: Card, top: Card, active: Color): boolean {
+  const isWildCard = card.color === "wild";
+  const isColorMatch = card.color === active;
+  const isTypeMatch = card.type === top.type;
+  const isNumberMatch =
+    card.type === CardType.Number &&
+    top.type === CardType.Number &&
+    card.value === top.value;
+
+  return isWildCard || isColorMatch || isTypeMatch || isNumberMatch;
+}
+*/
+/*
 exact functional check
 */

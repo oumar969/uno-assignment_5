@@ -1,5 +1,4 @@
 import * as _ from "lodash/fp"
-//lodash fp for functional programming utilities
 /*
 ✔ Immutable
 ✔ Pure
@@ -10,9 +9,7 @@ import { generate_deck, draw } from "./uno.deck"
 import { is_match } from "./uno.rules"
 import { Uno, Card, CardType, Color } from "./uno.types"
 
-// ----------------------------------------------------------
 // Create new game
-// ----------------------------------------------------------
 export function new_uno(playersIn: { id: string, name: string }[]): Uno {
   const deck = generate_deck();
   const players = playersIn.map((p, i) => ({
@@ -21,7 +18,6 @@ export function new_uno(playersIn: { id: string, name: string }[]): Uno {
     saidUno: false,
     hand: deck.slice(i * 7, i * 7 + 7),
   }))
-
 
   const discardPile = [deck[players.length * 7]]
   const drawPile = deck.slice(players.length * 7 + 1)
@@ -36,23 +32,17 @@ export function new_uno(playersIn: { id: string, name: string }[]): Uno {
   }
 }
 
-// ----------------------------------------------------------
 // Helpers
-// ----------------------------------------------------------
 function next_player(game: Uno): number {
   return (game.currentPlayer + game.direction + game.players.length) % game.players.length
 }
 
-// ----------------------------------------------------------
 // Say UNO
-// ----------------------------------------------------------
 export function say_uno(game: Uno): Uno {
   return _.set(["players", game.currentPlayer, "saidUno"], true, game)
 }
-// ----------------------------------------------------------
 // Draw card
-// ----------------------------------------------------------
-export function draw_card(game: Uno): Uno {
+  export function draw_card(game: Uno): Uno {
   const [card, newDeck] = draw(game.drawPile)
 
   return _.flow([
@@ -62,10 +52,7 @@ export function draw_card(game: Uno): Uno {
   ])(game)
 }
 
-// ----------------------------------------------------------
 // Play a card
-// ----------------------------------------------------------
-
 export function play_card(
   index: number,
   chosenColor: Color | null,

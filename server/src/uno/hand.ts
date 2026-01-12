@@ -1,8 +1,11 @@
 import { Card } from "./uno.types";
+//import { List } from "immutable";
+
 //functional programming
 // vs OOP
 // Pure functions
 // Pure immutable Hand utilities
+//callbacks(c) => for each card in hand
 export type Hand = readonly Card[];
 
 export function createHand(cards: Card[] = []): Hand {
@@ -12,7 +15,8 @@ export function createHand(cards: Card[] = []): Hand {
 export function handCount(hand: Hand): number {
   return hand.length;
 }
-//freeze makes object immutable
+
+//object.freeze makes sure the array can’t be changed
 export function addCard(hand: Hand, card: Card): Hand {
   return Object.freeze([...hand, card]) as Hand;
 }
